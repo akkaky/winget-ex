@@ -33,9 +33,11 @@ def get_program() -> list[Program]:
     programs_list = []
     for line in lines[2:-2]:
         name = line[:id_index].strip()
-        program_id, version, available, source = line[id_index:].split()
+        program_id, t_line = line[id_index:].split(' ', 1)
         if program_id in EXCLUDED_LIST:
             continue
+        t_line, source = t_line.strip().rsplit(' ',  1)
+        version, available = t_line.strip().rsplit(' ', 1)
         programs_list.append(
             Program(name, program_id, version, available, source)
         )
